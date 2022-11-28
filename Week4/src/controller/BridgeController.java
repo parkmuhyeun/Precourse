@@ -48,17 +48,18 @@ public class BridgeController {
                 }
                 //성공했다면
                 if (round == size - 1) {
-                    end = true;
+                    bridgeGame.updateSuccess();
+                    bridgeGame.updateEnd();
                 }
             }
             //재입력
-            if (end || !bridgeGame.retry(inputGameCommand())) {
+            if (bridgeGame.isEnd() || !bridgeGame.retry(inputGameCommand())) {
                 break;
             }
             user.clear();
         }
 
-        outputView.printResult(new ResultDTO(converter.convertToMapDTO(user), end, bridgeGame.getCount()));
+        outputView.printResult(new ResultDTO(converter.convertToMapDTO(user), bridgeGame.isSuccess(), bridgeGame.getCount()));
     }
 
     private int inputBridgeSize() {
