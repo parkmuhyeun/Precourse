@@ -1,6 +1,6 @@
 package baseball;
 
-import camp.nextstep.edu.missionutils.Console;
+import static baseball.ErrorMessage.INCORRECT_SELECT;
 
 public class BaseballController {
     private static final int CONTINUE = 1;
@@ -37,7 +37,7 @@ public class BaseballController {
 
     private static void validateSelect(String select) {
         if (select.length() != 1 || !Character.isDigit(getCharacter(select)) || !isRightSelect(select))
-            throw new IllegalArgumentException("1이나 2만 입력 가능합니다.");
+            throw new IllegalArgumentException(INCORRECT_SELECT);
     }
 
     private static boolean isRightSelect(String select) {
