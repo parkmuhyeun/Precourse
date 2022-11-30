@@ -1,24 +1,23 @@
 package baseball;
 
-import camp.nextstep.edu.missionutils.Console;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class User {
     private static final int DIGITS_SIZE = 3;
+    private static final char ZERO = '0';
 
     public User() {
     }
 
-    public List<Integer> input() {
-        char[] input = getDigits();
+    public List<Integer> input(String input) {
+        char[] inputDigit = input.toCharArray();
         List<Integer> digits = new ArrayList<>();
 
-        validateLength(input);
-        validateDigit(input);
-        validateSameDigit(input);
-        convertToInt(input, digits);
+        validateLength(inputDigit);
+        validateDigit(inputDigit);
+        validateSameDigit(inputDigit);
+        convertToInt(inputDigit, digits);
         return digits;
     }
 
@@ -40,14 +39,18 @@ public class User {
         }
     }
 
-    private boolean isSameDigit(char c, char c1) {
-        return c == c1;
+    private boolean isSameDigit(char rowCharacter, char columnCharacter) {
+        return rowCharacter == columnCharacter;
     }
 
     private void convertToInt(char[] input, List<Integer> digits) {
         for (int index = 0; index < DIGITS_SIZE; index++) {
-            digits.add(input[index] - '0');
+            digits.add(toInt(input[index]));
         }
+    }
+
+    private int toInt(char input) {
+        return input - ZERO;
     }
 
     private void validateDigit(char[] digits) {
@@ -63,21 +66,13 @@ public class User {
     }
 
     private boolean isWrong(char digit) {
-        return !Character.isDigit(digit);
+        return !Character.isDigit(digit) || digit == ZERO;
     }
 
     private void validateLength(char[] input) {
         if (input.length != DIGITS_SIZE) {
             throw new IllegalArgumentException("세 자리를 입력해 주세요.");
         }
-    }
-
-    private char[] getDigits() {
-        return inputData().toCharArray();
-    }
-
-    private String inputData() {
-        return Console.readLine();
     }
 
 }
