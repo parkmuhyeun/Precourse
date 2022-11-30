@@ -23,7 +23,7 @@ public class BaseballController {
 
             playGame(computer, user);
             outputView.outputEndMessage();
-            System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+            outputView.outputAdditionalGame();
             String select = inputSelect();
             validateSelect(select);
             system = Integer.parseInt(select);
