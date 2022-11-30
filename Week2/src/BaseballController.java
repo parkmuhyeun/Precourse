@@ -53,7 +53,7 @@ public class BaseballController {
         while (isContinue(game)) {
             outputView.outputInputDigit();
             Ball ball = computer.compareDigits(user.input());
-            System.out.println(ball.toString());
+            outputView.outputResult(ball.toString());
             game = isEnd(ball);
         }
     }
