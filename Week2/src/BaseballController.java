@@ -25,11 +25,14 @@ public class BaseballController {
 
             playGame(computer, user);
             outputView.outputEndMessage();
-            outputView.outputAdditionalGame();
-            String select = inputSelect();
-            validateSelect(select);
-            system = Integer.parseInt(select);
+            inputAdditionalGame();
         }
+    }
+
+    private void inputAdditionalGame() {
+        String select = inputView.inputSelect();
+        validateSelect(select);
+        system = Integer.parseInt(select);
     }
 
     private static void validateSelect(String select) {
