@@ -2,13 +2,15 @@ package baseball;
 
 import camp.nextstep.edu.missionutils.Console;
 
-public class Game {
+public class BaseballController {
     private static final int CONTINUE = 1;
     private static final int END = 2;
+    private static final char NEW_LINE = '\n';
+    private static final int SELECT_LENGTH = 1;
 
     private int system = CONTINUE;
 
-    public Game() {
+    public BaseballController() {
     }
 
     public void run() {
