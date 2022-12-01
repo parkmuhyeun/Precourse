@@ -69,8 +69,9 @@ public class BaseballController {
     }
 
     private static int isEnd(Ball ball) {
-        if (ball.isEnd())
+        if (ball.isEnd()){
             return END;
+        }
         return CONTINUE;
     }
 }
