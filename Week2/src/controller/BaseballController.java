@@ -1,11 +1,16 @@
-package baseball;
+package baseball.controller;
 
-import static baseball.ErrorMessage.INCORRECT_SELECT;
+import baseball.model.Hint;
+import baseball.model.Computer;
+import baseball.model.User;
+import baseball.view.InputView;
+import baseball.view.OutputView;
+
+import static baseball.message.ErrorMessage.INCORRECT_SELECT;
 
 public class BaseballController {
     private static final int CONTINUE = 1;
     private static final int END = 2;
-    private static final char NEW_LINE = '\n';
     private static final int SELECT_LENGTH = 1;
 
     private final OutputView outputView;
@@ -35,41 +40,42 @@ public class BaseballController {
         system = Integer.parseInt(select);
     }
 
-    private static void validateSelect(String select) {
-        if (select.length() != 1 || !Character.isDigit(getCharacter(select)) || !isRightSelect(select))
-            throw new IllegalArgumentException(INCORRECT_SELECT);
+    private void validateSelect(String select) {
+        if (isRightLength(select) && Character.isDigit(getCharacter(select)) && isRightSelect(select)) {
+            return;
+        }
+        throw new IllegalArgumentException(INCORRECT_SELECT);
     }
 
-    private static boolean isRightSelect(String select) {
+    private boolean isRightLength(String select) {
+        return select.length() == SELECT_LENGTH;
+    }
+
+    private boolean isRightSelect(String select) {
         int digit = Integer.parseInt(select);
         return digit == CONTINUE || digit == END;
     }
 
-    private static char getCharacter(String select) {
+    private char getCharacter(String select) {
         return select.charAt(0);
     }
 
-    private String inputSelect() {
-        return Console.readLine();
-    }
-
-    private static void playGame(Computer computer, User user) {
+    private void playGame(Computer computer, User user) {
         int game = CONTINUE;
         while (isContinue(game)) {
-            outputView.outputInputDigit();
             String inputDigit = inputView.inputDigit();
-            Ball ball = computer.compareDigits(user.input(inputDigit));
-            outputView.outputResult(ball.toString());
-            game = isEnd(ball);
+            Hint hint = computer.compareDigits(user.input(inputDigit));
+            outputView.outputResult(hint.toString());
+            game = isEnd(hint);
         }
     }
 
-    private static boolean isContinue(int game) {
+    private boolean isContinue(int game) {
         return game == CONTINUE;
     }
 
-    private static int isEnd(Ball ball) {
-        if (ball.isEnd()){
+    private int isEnd(Hint hint) {
+        if (hint.isEnd()) {
             return END;
         }
         return CONTINUE;

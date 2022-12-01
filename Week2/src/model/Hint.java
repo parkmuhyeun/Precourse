@@ -1,12 +1,12 @@
 package baseball;
 
-public class Ball {
+public class Hint {
     private static final int END = 3;
 
     private int strike;
     private int ball;
 
-    public Ball(int strike, int ball) {
+    public Hint(int strike, int ball) {
         this.strike = strike;
         this.ball = ball;
     }
