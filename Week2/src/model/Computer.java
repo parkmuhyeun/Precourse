@@ -16,25 +16,25 @@ public class Computer {
     public List<Integer> getDigits() {
         return digits;
     }
-
-    public Ball compareDigits(List<Integer> inputDigits) {
-        Ball ball = new Ball();
-
-        for (int row = 0; row < DIGIT_SIZE.getValue(); row++) {
-            compareDigitsByColumn(inputDigits, ball, row);
+    
+    public Hint compareInputDigits(List<Integer> inputDigits) {
+        Hint hint = new Hint();
+        
+        for (int inputIndex = 0; inputIndex < DIGIT_SIZE.getValue(); inputIndex++) {
+            compareDigits(inputDigits, hint, inputIndex);
         }
-        return ball;
+        return hint;
     }
 
-    private void compareDigitsByColumn(List<Integer> inputDigits, Ball ball, int row) {
-        for (int column = 0; column < DIGIT_SIZE.getValue(); column++) {
-            if (isStrike(inputDigits, row, column)) {
-                ball.addStrike();
+    private void compareDigits(List<Integer> inputDigits, Hint hint, int row) {
+        for (int digitIndex = 0; digitIndex < DIGIT_SIZE.getValue(); digitIndex++) {
+            if (isStrike(inputDigits, row, digitIndex)) {
+                hint.addStrike();
                 return;
             }
 
-            if (isSameDigit(inputDigits.get(row), digits.get(column))) {
-                ball.addBall();
+            if (isSameDigit(inputDigits.get(row), digits.get(digitIndex))) {
+                hint.addBall();
                 return;
             }
         }
