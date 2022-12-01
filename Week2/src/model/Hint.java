@@ -1,4 +1,6 @@
-package baseball;
+package baseball.model;
+
+import static baseball.model.HintStatus.*;
 
 public class Hint {
     private static final int END = 3;
@@ -6,9 +8,7 @@ public class Hint {
     private int strike;
     private int ball;
 
-    public Hint(int strike, int ball) {
-        this.strike = strike;
-        this.ball = ball;
+    public Hint() {
     }
 
     public int getStrike() {
@@ -36,19 +36,23 @@ public class Hint {
         StringBuilder string = new StringBuilder();
 
         if (isNothing()) {
-            return "낫싱";
+            return NOTHING.getName();
         }
         appendBall(string);
         return string.toString();
     }
 
     private void appendBall(StringBuilder string) {
-        if (ball != 0){
-            string.append(ball + "볼 ");
+        if (hasBall(ball)){
+            string.append(ball + BALL.getName() + " ");
         }
-        if (strike != 0) {
-            string.append(strike + "스트라이크");
+        if (hasBall(strike)) {
+            string.append(strike + STRIKE.getName());
         }
+    }
+
+    private boolean hasBall(int ball) {
+        return ball != 0;
     }
 
     private boolean isNothing() {
